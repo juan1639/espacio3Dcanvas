@@ -32,6 +32,20 @@ const sonidos = {
 }
 
 // ============================================================================
+let comenzar = false;
+
+document.addEventListener('click', (ev) => {
+
+	console.log(ev.target.id);
+
+	if (ev.target.id === 'canvas' && !comenzar) {
+		comenzar = true;
+		inicializar();
+	}
+
+});
+
+// ============================================================================
 class EstrellaFija {
 
 	constructor() {
@@ -157,12 +171,7 @@ function dibuja_texto(txt, x, y, font, align, color, alpha) {
 }
 
 // ============================================================================
-window.onload = () => {
-
-	canvas.width = resolucion[0];
-	canvas.height = resolucion[1];
-
-	ctx.scale(1, 1);
+function inicializar() {
 
 	sonidos.musica_fondo.play();
 	sonidos.musica_fondo.loop = true;
@@ -176,6 +185,21 @@ window.onload = () => {
 	setInterval(() => {
 		bucle_principal();
 	}, 1000 / constante.FPS);
+}
+
+// ============================================================================
+window.onload = () => {
+
+	canvas.width = resolucion[0];
+	canvas.height = resolucion[1];
+
+	ctx.scale(1, 1);
+
+	ctx.fillStyle = 'rgb(0, 0, 35)';
+	ctx.fillRect(0, 0, resolucion[0], resolucion[1]);
+
+	dibuja_texto('Toque para comenzar...', Math.floor(resolucion[0] / 2), Math.floor(resolucion[1] / 2), '24px arial', 'center', 'lightyellow', 1);
+
 }
 
 // ===================================================================
